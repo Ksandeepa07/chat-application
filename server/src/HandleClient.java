@@ -2,27 +2,22 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.ArrayList;
 
-public class HandleClient extends Thread{
+public class HandleClient implements Runnable{
     Socket handleClient;
     DataInputStream dataInputStream;
     DataOutputStream dataOutputStream;
-    //    ArrayList <HandleClient> client=new ArrayList<>();
-    Server sever;
+    ArrayList<HandleClient> client;
 
-    public HandleClient(Socket handleClient,Server server) {
+
+    public HandleClient(Socket handleClient, ArrayList<HandleClient> client) {
         this.handleClient = handleClient;
-        this.sever=server;
+        this.client=client;
 
     }
 
 
-//    public void addClient(ArrayList<HandleClient> clients) {
-//        for (HandleClient clientss : clients) {
-//            client.add(clientss);
-//        }
-//
-//    }
 
     public void run(){
         try {
@@ -30,19 +25,35 @@ public class HandleClient extends Thread{
             dataOutputStream=new DataOutputStream(handleClient.getOutputStream());
 
             String ClientMessage="";
-            String ServerMessage="";
+
 
             while(!ClientMessage.equals("end")){
-
                 ClientMessage=dataInputStream.readUTF();
+                System.out.println(ClientMessage);
+
+              if(ClientMessage.charAt(0)=='#'){
+                  for (HandleClient handleClient1 : client) {
+                      if(handleClient1!=this){
+                          handleClient1.sendImageMessage(ClientMessage);
+                      }
+                  }
 
 
-//                for (HandleClient handleClient1 : client) {
-//                    System.out.println(handleClient1);
-//                    handleClient1.send(ClientMessage,this);
-//                }
-                sever.send(ClientMessage,this);
+              }else if(ClientMessage.charAt(0)=='@'){
+                    for (HandleClient handleClient1 : client) {
+                        if(handleClient1!=this){
+                            handleClient1.sendEmojiMessage(ClientMessage);
+                        }
+                    }
+                }
+              else{
 
+                  for (HandleClient handleClient1 : client) {
+                      if (handleClient1 != this) {
+                          handleClient1.sendMessage(ClientMessage);
+                      }
+                  }
+              }
 
 
             }
@@ -51,6 +62,17 @@ public class HandleClient extends Thread{
             e.printStackTrace();
         }
     }
+
+    private void sendEmojiMessage(String clientMessage) {
+        try {
+            dataOutputStream.writeUTF(clientMessage);
+            dataOutputStream.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 
     void sendMessage(String ClientMessage){
         try {
@@ -62,4 +84,16 @@ public class HandleClient extends Thread{
 
     }
 
+    public void sendImageMessage(String imageData) {
+
+        try {
+
+            dataOutputStream.writeUTF(imageData);
+            dataOutputStream.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+    }
 }

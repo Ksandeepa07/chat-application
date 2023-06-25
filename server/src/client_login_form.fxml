@@ -1,28 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ClientLoginFormController">
-    <children>
-      <Group fx:id="group01" layoutX="117.0" layoutY="192.0" visible="false">
+<AnchorPane fx:id="ancpane" prefHeight="722.0" prefWidth="644.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ClientLoginFormController">
+   <children>
+      <Group fx:id="group02" layoutX="25.0" layoutY="11.0">
          <children>
-              <TextField fx:id="clientNameTxt" prefHeight="32.0" prefWidth="171.0" />
-              <Button fx:id="joinBtn" layoutX="213.0" layoutY="8.0" mnemonicParsing="false" onAction="#joinBtnOnAction" text="Join" />
+            <ScrollPane fx:id="sPane" layoutX="-14.0" layoutY="113.0" prefHeight="369.0" prefWidth="626.0">
+               <content>
+                  <VBox fx:id="vBoxLeft" prefHeight="354.0" prefWidth="613.0" />
+               </content>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding></ScrollPane>
+            <Button fx:id="sendBtn" layoutX="227.0" layoutY="633.0" mnemonicParsing="false" onAction="#sendBtnOnAction" text="Send" />
+            <Label fx:id="chatRoomLbl" layoutX="178.0" layoutY="29.0" prefHeight="39.0" prefWidth="204.0" />
+            <Button layoutX="290.0" layoutY="633.0" mnemonicParsing="false" onAction="#imageBtnOnAction" text="Image" />
+            <Button layoutX="366.0" layoutY="633.0" mnemonicParsing="false" onAction="#sendImojiOnAction" text="Send Imoji" />
+            <TextField fx:id="senMessageTxt" layoutX="13.0" layoutY="623.0" prefHeight="39.0" prefWidth="204.0" />
+            <ScrollPane fx:id="sBarImoji" layoutX="368.0" layoutY="488.0" prefHeight="115.0" prefWidth="228.0" visible="false">
+               <content>
+                  <VBox fx:id="vBoxImoji" prefHeight="112.0" prefWidth="229.0" visible="false" />
+               </content>
+            </ScrollPane>
          </children>
       </Group>
-      <Group fx:id="group02" layoutX="35.0" layoutY="24.0">
+      <Group fx:id="group01" layoutX="82.0" layoutY="258.0">
          <children>
-            <TextArea fx:id="clientMessageTxtArea" prefHeight="261.0" prefWidth="550.0" />
-            <TextField fx:id="senMessageTxt" layoutX="1.0" layoutY="319.0" prefHeight="30.0" prefWidth="182.0" />
-            <Button fx:id="sendBtn" layoutX="213.0" layoutY="322.0" mnemonicParsing="false" onAction="#sendBtnOnAction" text="Send" />
-            <Label fx:id="chatRoomLbl" layoutX="175.0" layoutY="14.0" prefHeight="28.0" prefWidth="161.0" />
+            <Button fx:id="joinBtn" layoutX="166.0" layoutY="7.0" mnemonicParsing="false" onAction="#joinBtnOnAction" prefHeight="36.0" prefWidth="85.0" text="Join Chat" />
+            <TextField fx:id="clientNameTxt" prefHeight="39.0" prefWidth="156.0" />
          </children>
       </Group>
-    </children>
+   </children>
 </AnchorPane>

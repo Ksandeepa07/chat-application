@@ -5,26 +5,20 @@ import java.util.ArrayList;
 
 public class Server {
 
-    ArrayList<HandleClient> clients=new ArrayList<>();
-    ArrayList<String> clientNames=new ArrayList();
-    String ClientName;
+    ArrayList<HandleClient> client=new ArrayList<>();
 
-    public void eccute() {
+    public void excute() {
 
-        int count=0;
         try {
             ServerSocket serverSocket=new ServerSocket(3001);
 
             while(true){
-                count++;
                 Socket socket=serverSocket.accept();
-                System.out.println("Client "+count+" joined");
 
-                HandleClient handleClient=new HandleClient(socket,this);
-                clients.add(handleClient);
-
-//                handleClient.addClient(clients,this);
-                handleClient.start();
+                HandleClient handleClient=new HandleClient(socket,client);
+                client.add(handleClient);
+                Thread newClient =new Thread(handleClient);
+                newClient.start();
             }
 
         } catch (IOException e) {
@@ -33,48 +27,13 @@ public class Server {
 
     }
 
-    void send(String ClientMessage,HandleClient handleClient){
-        for(HandleClient clientt:clients){
-            if(clientt!=handleClient) {
-                clientt.sendMessage(ClientMessage);
-            }
-
-        }
-
-    }
-
 
 
     public static void main(String[] args) {
         Server server=new Server();
-        server.eccute();
+        server.excute();
     }
 
 
-
-
-//    public static void main(String[] args) {
-//        ArrayList<HandleClient> clients=new ArrayList<>();
-//        int count=0;
-//        try {
-//            ServerSocket serverSocket=new ServerSocket(3302);
-//
-//            while(true){
-//                count++;
-//                Socket socket=serverSocket.accept();
-//                System.out.println("Client "+count+" joined");
-//                HandleClient handleClient=new HandleClient(socket,count);
-//                clients.add(handleClient);
-//
-//                handleClient.addClient(clients);
-//                handleClient.start();
-//            }
-//
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//
-//
-//    }
 
 }
