@@ -7,6 +7,7 @@ import javafx.scene.Group;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -78,7 +79,7 @@ public class ClientLoginFormController extends Thread {
         try {
 
 
-            dataOutputStream.writeUTF(chatRoomLbl.getText() + " :" + senMessageTxt.getText());
+            dataOutputStream.writeUTF(chatRoomLbl.getText() + " : " + senMessageTxt.getText());
             dataOutputStream.flush();
 
             Text text = new Text("Me : " + senMessageTxt.getText());
@@ -124,6 +125,7 @@ public class ClientLoginFormController extends Thread {
                         Image image = new Image(cut);
                         ImageView imageView = new ImageView(image);
                         vBox.getChildren().add((imageView));
+
                     } else if (message.charAt(0) == '@') {
                         String neww = message.substring(1);
                         text = new Text(neww);
@@ -175,6 +177,7 @@ public class ClientLoginFormController extends Thread {
         loadEmoji("\uD83D\uDE00"); // Grinning Face
         loadEmoji("\uD83C\uDF1E"); // Sun with Face
         loadEmoji("\u2764\ufe0f");
+        loadEmoji("\uD83D\uDC4D");
 
         vBoxLeft.setSpacing(7);
         vBoxLeft.setStyle("-fx-background-color: #ffffff;");
@@ -197,24 +200,25 @@ public class ClientLoginFormController extends Thread {
         vBoxImoji.getChildren().add(label);
         label.setOnMouseClicked(event -> {
 
-            try {
-                dataOutputStream.writeUTF("@" + grinningFace);
-                dataOutputStream.flush();
-                HBox vBox = new HBox(10);
+//            try {
+//                dataOutputStream.writeUTF("@" +chatRoomLbl.getText() + " : " + grinningFace);
+//                dataOutputStream.flush();
+                senMessageTxt.appendText(grinningFace);
+//                HBox vBox = new HBox(10);
+//
+//                Text text = new Text("Me : " +grinningFace);
+//                text.setStyle("-fx-font-size: 14");
+//                TextFlow textFlow = new TextFlow(text);
+//                textFlow.setStyle("-fx-background-color: #0693e3; -fx-font-weight: bold; -fx-color: white; -fx-background-radius: 10 0 10 10");
+//                textFlow.setPadding(new Insets(10, 8, 10, 10));
+//
+//                vBox.setAlignment(Pos.BASELINE_RIGHT);
+//                vBox.getChildren().addAll(textFlow);
+//                vBoxLeft.getChildren().add(vBox);
 
-                Text text = new Text(grinningFace);
-                text.setStyle("-fx-font-size: 14");
-                TextFlow textFlow = new TextFlow(text);
-                textFlow.setStyle("-fx-background-color: #0693e3; -fx-font-weight: bold; -fx-color: white; -fx-background-radius: 0 10 10 10");
-                textFlow.setPadding(new Insets(10, 8, 10, 10));
-
-                vBox.setAlignment(Pos.BASELINE_RIGHT);
-                vBox.getChildren().addAll(textFlow);
-                vBoxLeft.getChildren().add(vBox);
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
 
 
         });
@@ -239,13 +243,16 @@ public class ClientLoginFormController extends Thread {
 
             Image image = new Image(imageFile.toURI().toString());
             ImageView imageView = new ImageView(image);
-            VBox vBox = new VBox();
+
+
+            HBox vBox = new HBox();
             vBox.setAlignment(Pos.BASELINE_RIGHT);
             vBox.setPrefWidth(10);
+
+
             vBox.setPadding(new Insets(10, 10, 10, 10));
             vBox.getChildren().addAll(imageView);
             vBoxLeft.getChildren().add(vBox);
-
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -258,8 +265,17 @@ public class ClientLoginFormController extends Thread {
 
 
     public void sendImojiOnAction(ActionEvent actionEvent) {
+
+    }
+
+
+
+    @FXML
+    void sendImojiOnAction(MouseEvent event) {
         sBarImoji.setVisible(true);
         vBoxImoji.setVisible(true);
         vBoxImoji.setStyle("-fx-background-color: #ffffff;");
     }
+
+
 }

@@ -13,7 +13,7 @@
 
 <AnchorPane fx:id="ancpane" prefHeight="722.0" prefWidth="644.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ClientLoginFormController">
    <children>
-      <Group fx:id="group02" layoutX="25.0" layoutY="11.0" visible="false">
+      <Group fx:id="group02" layoutX="25.0" layoutY="11.0">
          <children>
             <ScrollPane fx:id="sPane" layoutX="-14.0" layoutY="113.0" prefHeight="369.0" prefWidth="626.0">
                <padding>
@@ -34,7 +34,7 @@
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Button>
-            <Button layoutX="497.0" layoutY="632.0" mnemonicParsing="false" onAction="#sendImojiOnAction" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: black; -fx-text-fill: white; -fx-background-radius: 20;" text="Send Emoji" textAlignment="CENTER">
+            <Button layoutX="497.0" layoutY="632.0" mnemonicParsing="false" onMousePressed="#sendImojiOnAction" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: black; -fx-text-fill: white; -fx-background-radius: 20;" text="Send Emoji" textAlignment="CENTER">
                <font>
                   <Font name="System Bold Italic" size="12.0" />
                </font></Button>
@@ -46,7 +46,7 @@
             </ScrollPane>
          </children>
       </Group>
-      <Group fx:id="group01" layoutX="178.0" layoutY="317.0">
+      <Group fx:id="group01" layoutX="178.0" layoutY="317.0" visible="false">
          <children>
             <Button fx:id="joinBtn" layoutX="216.0" mnemonicParsing="false" onAction="#joinBtnOnAction" prefHeight="38.0" prefWidth="85.0" style="-fx-background-color: black; -fx-background-radius: 10; -fx-text-fill: white;" text="Join Chat">
                <font>
